@@ -31,7 +31,7 @@ Nope, not in the slightest. You have been warned.
 
 That said, it's perfectly "safe", given a certain defintion of the word "safe". The "create a new plugin" screen itself is secure, and inaccessible to anybody who lacks the capability to "edit_plugins" to begin with. Pluginception also uses the proper WP_Filesystem methods to create the plugin, so there's no worries about incorrect file ownership on shared hosting. You may have to give it FTP credentials on some hosts for it to be able to create the plugin, that's the WP_Filesystem at work, making sure the files are correctly "owned".
 
-All this plugin really does is make it quick and easy to create a new one-off plugin and take you directly to editing it. Cowboy-coding at it's finest.
+All this plugin really does is make it quick and easy to create a new one-off plugin and take you directly to editing it. Cowboy-coding at its finest.
 
 = For the love of god, man, why? =
 
