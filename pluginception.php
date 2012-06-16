@@ -149,6 +149,10 @@ END;
 	</script>
 	<?php
 	
-	exit;
+	$message = sprintf(__('The new plugin has been created and activated. You can %sgo to the editor</a> if your browser does not redirect you.', 'pluginception'), '<a href="'.$plugeditor.'">');
+	
+	add_settings_error('pluginception', 'plugin_active', $message, 'pluginception', 'updated');
+	
+	return true;
 }
 
