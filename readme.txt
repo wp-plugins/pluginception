@@ -43,11 +43,6 @@ If you paste in non-working code, or decide to use the plugin editor to experime
 
 Then modify the plugin however you like to do whatever you want. Don't bother me with it. This plugin does what I want it to do.
 
-
-== Screenshots ==
-
-== Upgrade Notice ==
-
 == Changelog ==
 
 = 1.0 = 
