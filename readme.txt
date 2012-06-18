@@ -8,6 +8,8 @@ Stable Tag: trunk
 License: GPLv2
 License URI: http://www.opensource.org/licenses/GPL-2.0
 
+A plugin that lets you quickly and easily create new plugins.
+
 == Description ==
 
 A plugin that lets you quickly and easily create new plugins.
