@@ -3,7 +3,7 @@
 Plugin Name: Pluginception
 Plugin URI: http://ottopress.com/wordpress-plugins/pluginception
 Description: A plugin to create other plugins. Pluginception.
-Version: 1.0
+Version: 1.1
 Author: Otto
 Author URI: http://ottopress.com
 License: GPLv2 only
@@ -65,7 +65,10 @@ function pluginception_create_plugin() {
 		return false;
 	
 	check_admin_referer('pluginception_nonce');
-	
+		
+	// remove the magic quotes
+	$_POST = stripslashes_deep( $_POST );
+
 	if (empty($_POST['pluginception_name'])) {
 		add_settings_error( 'pluginception', 'required_name',__('Plugin Name is required', 'pluginception'), 'error' );
 		return $_POST;

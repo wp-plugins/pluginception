@@ -47,5 +47,8 @@ Then modify the plugin however you like to do whatever you want. Don't bother me
 
 == Changelog ==
 
+= 1.1 =
+* Fix problems with quotes being slash-escaped (magic quotes).
+
 = 1.0 = 
 * First version.
