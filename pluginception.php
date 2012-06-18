@@ -49,7 +49,7 @@ function pluginception_options_page() {
 
 		foreach ($opts as $slug=>$title) {
 			$value = '';
-			if (!empty($results['pluginception_'.$slug])) $value = $results['pluginception_'.$slug];
+			if (!empty($results['pluginception_'.$slug])) $value = esc_attr($results['pluginception_'.$slug]);
 			echo "<tr valign='top'><th scope='row'>{$title}</th><td><input class='regular-text' type='text' name='pluginception_{$slug}' value='{$value}'></td></tr>\n";
 		}
 		?>
