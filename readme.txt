@@ -25,6 +25,7 @@ After the plugin is created, you'll be taken directly to the Plugin Editor scree
 1. Activate the "Pluginception" plugin through the 'Plugins' menu in WordPress
 1. Try the "Create a New Plugin" option in the Plugins menu.
 
+
 == Frequently Asked Questions ==
 
 = Is this safe? =
@@ -44,6 +45,7 @@ If you paste in non-working code, or decide to use the plugin editor to experime
 = I want this plugin to do something other than what it does. = 
 
 Then modify the plugin however you like to do whatever you want. Don't bother me with it. This plugin does what I want it to do.
+
 
 == Changelog ==
 
