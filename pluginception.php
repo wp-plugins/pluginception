@@ -90,7 +90,7 @@ function pluginception_create_plugin() {
 	$method = ''; // TODO TESTING
 
 	// okay, let's see about getting credentials
-	$url = wp_nonce_url('plugins.php?page=plugin-creator','pluginception_nonce');
+	$url = wp_nonce_url('plugins.php?page=pluginception','pluginception_nonce');
 	if (false === ($creds = request_filesystem_credentials($url, $method, false, false, $form_fields) ) ) {
 		return true; 
 	}
