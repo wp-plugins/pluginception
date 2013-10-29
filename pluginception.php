@@ -1,11 +1,12 @@
 <?php
-/* 
+/*
 Plugin Name: Pluginception
 Plugin URI: http://ottopress.com/wordpress-plugins/pluginception
 Description: A plugin to create other plugins. Pluginception.
-Version: 1.1
+Version: 1.2
 Author: Otto
 Author URI: http://ottopress.com
+Text Domain: pluginception
 License: GPLv2 only
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
@@ -19,32 +20,38 @@ function pluginception_load_textdomain() {
 
 add_action('admin_menu', 'pluginception_admin_add_page');
 function pluginception_admin_add_page() {
-	add_plugins_page(__('Create a New Plugin','pluginception'), __('Create a New Plugin','pluginception'), 'edit_plugins', 'pluginception', 'pluginception_options_page');
+	add_plugins_page(
+		esc_html__('Create a New Plugin','pluginception'),
+		esc_html__('Create a New Plugin','pluginception'),
+		'edit_plugins',
+		'pluginception',
+		'pluginception_options_page'
+	);
 }
 
 function pluginception_options_page() {
 	$results = pluginception_create_plugin();
-	
+
 	if ( $results === true ) return;
 	?>
 	<div class="wrap">
 		<?php screen_icon(); ?>
-		<h2><?php _e('Create a New Plugin','pluginception'); ?></h2>
+		<h2><?php esc_html_e('Create a New Plugin','pluginception'); ?></h2>
 		<?php settings_errors(); ?>
 		<form method="post" action="">
 		<?php wp_nonce_field('pluginception_nonce'); ?>
 		<table class="form-table">
-		<?php 
+		<?php
 		$opts = array(
-			'name' => __('Plugin Name', 'pluginception'),
-			'slug' => __('Plugin Slug (optional)', 'pluginception'),
-			'uri' => __('Plugin URI (optional)', 'pluginception'),
-			'description' => __('Description (optional)', 'pluginception'),
-			'version' => __('Version (optional)', 'pluginception'),
-			'author' => __('Author (optional)', 'pluginception'),
-			'author_uri' => __('Author URI (optional)', 'pluginception'),
-			'license' => __('License (optional)', 'pluginception'),
-			'license_uri' => __('License URI (optional)', 'pluginception'),		
+			'name' => esc_html__('Plugin Name', 'pluginception'),
+			'slug' => esc_html__('Plugin Slug (optional)', 'pluginception'),
+			'uri' => esc_html__('Plugin URI (optional)', 'pluginception'),
+			'description' => esc_html__('Description (optional)', 'pluginception'),
+			'version' => esc_html__('Version (optional)', 'pluginception'),
+			'author' => esc_html__('Author (optional)', 'pluginception'),
+			'author_uri' => esc_html__('Author URI (optional)', 'pluginception'),
+			'license' => esc_html__('License (optional)', 'pluginception'),
+			'license_uri' => esc_html__('License URI (optional)', 'pluginception'),
 		);
 
 		foreach ($opts as $slug=>$title) {
@@ -54,7 +61,7 @@ function pluginception_options_page() {
 		}
 		?>
 		</table>
-		<?php submit_button( __('Create a blank plugin and activate it!', 'pluginception') ); ?>
+		<?php submit_button( esc_html__('Create a blank plugin and activate it!', 'pluginception') ); ?>
 		</form>
 	</div>
 <?php
@@ -63,36 +70,36 @@ function pluginception_options_page() {
 function pluginception_create_plugin() {
 	if ( 'POST' != $_SERVER['REQUEST_METHOD'] )
 		return false;
-	
+
 	check_admin_referer('pluginception_nonce');
-		
+
 	// remove the magic quotes
 	$_POST = stripslashes_deep( $_POST );
 
 	if (empty($_POST['pluginception_name'])) {
-		add_settings_error( 'pluginception', 'required_name',__('Plugin Name is required', 'pluginception'), 'error' );
+		add_settings_error( 'pluginception', 'required_name',esc_html__('Plugin Name is required', 'pluginception'), 'error' );
 		return $_POST;
 	}
-	
+
 	if ( empty($_POST['pluginception_slug'] ) ) {
 		$_POST['pluginception_slug'] = sanitize_title($_POST['pluginception_name']);
 	} else {
 		$_POST['pluginception_slug'] = sanitize_title($_POST['pluginception_slug']);
 	}
-	
+
 	if ( file_exists(trailingslashit(WP_PLUGIN_DIR).$_POST['pluginception_slug'] ) ) {
-		add_settings_error( 'pluginception', 'existing_plugin', __('That plugin appears to already exist. Use a different slug or name.', 'pluginception'), 'error' );
+		add_settings_error( 'pluginception', 'existing_plugin', esc_html__('That plugin appears to already exist. Use a different slug or name.', 'pluginception'), 'error' );
 		return $_POST;
 	}
 
-	$form_fields = array ('pluginception_name', 'pluginception_slug', 'pluginception_uri', 'pluginception_description', 'pluginception_version', 
+	$form_fields = array ('pluginception_name', 'pluginception_slug', 'pluginception_uri', 'pluginception_description', 'pluginception_version',
 				'pluginception_author', 'pluginception_author_uri', 'pluginception_license', 'pluginception_license_uri');
 	$method = ''; // TODO TESTING
 
 	// okay, let's see about getting credentials
 	$url = wp_nonce_url('plugins.php?page=pluginception','pluginception_nonce');
 	if (false === ($creds = request_filesystem_credentials($url, $method, false, false, $form_fields) ) ) {
-		return true; 
+		return true;
 	}
 
 	// now we have some credentials, try to get the wp_filesystem running
@@ -107,14 +114,14 @@ function pluginception_create_plugin() {
 
 	// create the plugin directory
 	$plugdir = $wp_filesystem->wp_plugins_dir() . $_POST['pluginception_slug'];
-	
+
 	if ( ! $wp_filesystem->mkdir($plugdir) ) {
-		add_settings_error( 'pluginception', 'create_directory', __('Unable to create the plugin directory.', 'pluginception'), 'error' );
+		add_settings_error( 'pluginception', 'create_directory', esc_html__('Unable to create the plugin directory.', 'pluginception'), 'error' );
 		return $_POST;
 	}
-	
+
 	// create the plugin header
-	
+
 	$header = <<<END
 <?php
 /*
@@ -131,18 +138,18 @@ License URI: {$_POST['pluginception_license_uri']}
 END;
 
 	$plugfile = trailingslashit($plugdir).$_POST['pluginception_slug'].'.php';
-	
+
 	if ( ! $wp_filesystem->put_contents( $plugfile, $header, FS_CHMOD_FILE) ) {
-		add_settings_error( 'pluginception', 'create_file', __('Unable to create the plugin file.', 'pluginception'), 'error' );
+		add_settings_error( 'pluginception', 'create_file', esc_html__('Unable to create the plugin file.', 'pluginception'), 'error' );
 	}
 
 	$plugslug = $_POST['pluginception_slug'].'/'.$_POST['pluginception_slug'].'.php';
 	$plugeditor = admin_url('plugin-editor.php?file='.$_POST['pluginception_slug'].'%2F'.$_POST['pluginception_slug'].'.php');
 
 	if ( null !== activate_plugin( $plugslug, '', false, true ) ) {
-		add_settings_error( 'pluginception', 'activate_plugin', __('Unable to activate the new plugin.', 'pluginception'), 'error' );
+		add_settings_error( 'pluginception', 'activate_plugin', esc_html__('Unable to activate the new plugin.', 'pluginception'), 'error' );
 	}
-	
+
 	// plugin created and activated, redirect to the plugin editor
 	?>
 	<script type="text/javascript">
@@ -151,11 +158,12 @@ END;
 	//-->
 	</script>
 	<?php
-	
-	$message = sprintf(__('The new plugin has been created and activated. You can %sgo to the editor</a> if your browser does not redirect you.', 'pluginception'), '<a href="'.$plugeditor.'">');
-	
+
+	/* translators: inline link to plugin editor */
+	$message = sprintf(esc_html__('The new plugin has been created and activated. You can %sgo to the editor%s if your browser does not redirect you.', 'pluginception'), '<a href="'.$plugeditor.'">', '</a>');
+
 	add_settings_error('pluginception', 'plugin_active', $message, 'pluginception', 'updated');
-	
+
 	return true;
 }
 

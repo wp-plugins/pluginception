@@ -3,7 +3,7 @@ Contributors: Otto42
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=otto%40ottodestruct%2ecom
 Tags: plugin, creation, new
 Requires at least: 3.0
-Tested up to: 3.4
+Tested up to: 3.7
 Stable Tag: trunk
 License: GPLv2
 License URI: http://www.opensource.org/licenses/GPL-2.0
@@ -48,6 +48,9 @@ Then modify the plugin however you like to do whatever you want. Don't bother me
 
 
 == Changelog ==
+
+= 1.2 = 
+* Corrected translation support, added POT file for translators
 
 = 1.1 =
 * Fix problems with quotes being slash-escaped (magic quotes).
