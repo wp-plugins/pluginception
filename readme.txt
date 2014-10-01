@@ -1,7 +1,7 @@
 === Pluginception === 
 Contributors: Otto42
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=otto%40ottodestruct%2ecom
-Tags: plugin, creation, new
+Tags: create, new, plugin
 Requires at least: 3.0
 Tested up to: 4.0
 Stable Tag: trunk
